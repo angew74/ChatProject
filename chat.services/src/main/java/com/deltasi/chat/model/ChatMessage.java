@@ -1,4 +1,4 @@
-package com.deltasi.chat.services.model;
+package com.deltasi.chat.model;
 
 public class ChatMessage {
     private MessageType type;
