@@ -1,4 +1,4 @@
-package com.deltasi.chat.services;
+package com.deltasi.chat.services.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
