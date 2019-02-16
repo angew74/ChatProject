@@ -50,10 +50,6 @@
             <artifactId>spring-messaging</artifactId>
             <version>5.1.5.RELEASE</version>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-reactor-netty</artifactId>
-		</dependency>
     </dependencies>
 
 	<build>
