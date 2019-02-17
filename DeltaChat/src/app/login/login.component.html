@@ -1,0 +1,42 @@
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <form  class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-card-content>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username"  name="username"
+                       formControlName="username" id="username"
+                       required>
+                <div class="error" *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched">Username is required</div>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput placeholder="Password"
+                     formControlName="password" id="pwd"
+                    type="password" name="password" required>
+            </mat-form-field>
+              <div class="error" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">Password is required</div>
+            </td>
+          </tr></table>
+      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button [disabled]="loginForm.invalid"  color="primary">Login</button>
+      <div *ngIf="invalidLogin" class="error">
+        <div>Invalid credentials.</div>
+      </div>
+    </mat-card-actions>
+    </form>
+  </mat-card>
+
+
+
+
+
