@@ -2,7 +2,7 @@ package com.deltasi.chat.services;
 
 import java.util.List;
 
-import com.deltasi.chat.Contracts.IUserService;
+import com.deltasi.chat.contracts.IUserService;
 import com.deltasi.chat.model.User;
 import com.deltasi.chat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ public class UserService implements UserDetailsService , IUserService {
     @Override
     @Transactional
     public void addUser(User user) {
-        userRepository.Save(user);
+        userRepository.save(user);
     }
 
     @Override
     @Transactional
     public List<User> getAllUsers() {
-        List<User> l = userRepository.getAll();
+        List<User> l = userRepository.findAll();
         return l;
     }
 
@@ -45,16 +45,22 @@ public class UserService implements UserDetailsService , IUserService {
     @Override
     @Transactional(readOnly = true)
     public User getUser(int id) {
-        User user = userRepository.findUserBy(id);
+        User user = userRepository.findUserById(id);
         user.getAuthorities();
         return user;
 
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<User> getUserByMailAziendale(String mail) {
+       return userRepository.findByMailaziendale(mail);
+    }
+
+    @Override
     @Transactional
     public User updateUser(User user) {
-        return userRepository.updateUser(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Transactional
@@ -66,7 +72,7 @@ public class UserService implements UserDetailsService , IUserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findUserByUsername(username);
+        User user = userRepository.findUserByUsername(username.toLowerCase());
         UserBuilder builder;
         builder = null;
         logger.debug("Ho trovato user" + username);

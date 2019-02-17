@@ -7,19 +7,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-
-
-/**
- *
- * @author AdminDSI
- */
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -29,16 +26,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserDetailsService  userDetailsService;
 
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
     @Bean("authenticationManager")
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    @Bean
+    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtAuthenticationFilter();
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    };
+    }
 
 
     @Override
@@ -52,14 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/token/*", "/signup").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400)
-                .and()
-                .httpBasic();
-
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
 
     }

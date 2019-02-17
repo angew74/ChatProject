@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<hibernate.version>5.4.0.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -30,6 +31,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,8 +57,30 @@
             <artifactId>spring-messaging</artifactId>
             <version>5.1.5.RELEASE</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
 
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -60,5 +89,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

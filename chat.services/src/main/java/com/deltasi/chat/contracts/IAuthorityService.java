@@ -1,4 +1,4 @@
-package com.deltasi.chat.Contracts;
+package com.deltasi.chat.contracts;
 
 
 
@@ -19,7 +19,10 @@ public interface IAuthorityService
 
     void Delete(Authority authority);
 
+    void Update(Authority authority);
+
     List<Authority> getAuthorityByUser(User user);
+
 
 
 

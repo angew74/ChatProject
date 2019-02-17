@@ -6,21 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
-import com.deltasi.chat.Contracts.IAuthorityService;
-import com.deltasi.chat.Contracts.IUserService;
+
+import com.deltasi.chat.contracts.IAuthorityService;
+import com.deltasi.chat.contracts.IUserService;
 import com.deltasi.chat.model.Authority;
 import com.deltasi.chat.model.User;
 import com.deltasi.chat.model.UserJsonResponse;
-import com.deltasi.chat.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users")
+@CrossOrigin(origins="*", maxAge=3600)
 public class UsersController {
 
 
@@ -46,8 +44,8 @@ public class UsersController {
     private PasswordEncoder passwordEncoder;
 
     @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/manage")
-    public List<User> index(Model model, Principal principal) {
+    @GetMapping(value = "/All")
+    public List<User> List() {
 
         Map<String, String> errors = null;
         List<User> list = null;
@@ -61,7 +59,7 @@ public class UsersController {
         return list;
     }
 
-    @PostMapping(value = "/view")
+    @GetMapping(value = "/view/{id}")
     public UserJsonResponse viewUser(@PathVariable("id") String id) {
         Integer idf = Integer.parseInt(id);
         Map<String, String> errors = null;

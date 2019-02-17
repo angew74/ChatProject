@@ -3,7 +3,7 @@ package com.deltasi.chat.services;
 import java.util.List;
 import javax.transaction.Transactional;
 
-import com.deltasi.chat.Contracts.IAuthorityService;
+import com.deltasi.chat.contracts.IAuthorityService;
 import com.deltasi.chat.model.Authority;
 import com.deltasi.chat.model.User;
 import com.deltasi.chat.repository.AuthorityRepository;
@@ -24,7 +24,11 @@ public class AuthorityService implements IAuthorityService {
 
     @Override
     public void Save(Authority authority) {
-        authorityRepository.Save(authority);
+        authorityRepository.saveAndFlush(authority);
+    }
+    @Override
+    public void Update(Authority authority) {
+        authorityRepository.save(authority);
     }
 
     @Override
