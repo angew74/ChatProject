@@ -3,6 +3,7 @@ package com.deltasi.chat.controllers;
 import com.deltasi.chat.config.JwtTokenUtil;
 import com.deltasi.chat.model.ApiResponse;
 import com.deltasi.chat.model.AuthToken;
+import com.deltasi.chat.model.LoginUser;
 import com.deltasi.chat.model.User;
 import com.deltasi.chat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/chat.services/token")
 public class AuthenticationController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class AuthenticationController {
     private UserService userService;
 
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
-    public ApiResponse register(@RequestBody User loginUser) throws AuthenticationException {
+    public ApiResponse register(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
         final User user = userService.getByUsername(loginUser.getUsername());

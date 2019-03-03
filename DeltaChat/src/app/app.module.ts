@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from './core/api.service';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TokenInterceptor} from './core/interceptor';
 import {DeltaMaterialModule} from './core/material.module';
 import {routing} from './app.routing';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 
@@ -39,6 +40,7 @@ import {routing} from './app.routing';
     FormsModule,
     ReactiveFormsModule,
     DeltaMaterialModule,
+    FlexLayoutModule,
     BrowserAnimationsModule
   ],
   providers: [ApiService, {provide: HTTP_INTERCEPTORS,

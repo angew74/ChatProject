@@ -18,14 +18,14 @@ public class WebSocketController {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
-    @MessageMapping("/message")
+    @MessageMapping("/chat.services/message")
     @SendTo("/topic/reply")
     public String processMessageFromClient(@Payload ChatMessage message) throws Exception {
         String name = message.getSender();
         return name;
     }
 
-    @MessageMapping("/chat.sendMessage")
+    @MessageMapping("/chat.services/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
@@ -37,7 +37,7 @@ public class WebSocketController {
         return exception.getMessage();
     }
 
-    @MessageMapping("/chat.addUser")
+    @MessageMapping("/chat.services/chat.addUser")
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/chat.services/users")
 @CrossOrigin(origins="*", maxAge=3600)
 public class UsersController {
 

@@ -11,14 +11,14 @@ import {ApiResponse} from '../model/api.response';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: 'http://localhost:8080/chat-services/users/';
+ private baseUrl: string = 'http://localhost:8080/chat.services/users/';
 
   login(loginPayload): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>('http://localhost:8080/chat-services/' + 'token/generate-token', loginPayload);
+    return this.http.post<ApiResponse>('http://localhost:8080/chat.services/' + 'token/generate-token', loginPayload);
   }
 
   getUsers(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.baseUrl);
+    return this.http.get<ApiResponse>(this.baseUrl + 'All');
   }
 
   getUserById(id: number): Observable<ApiResponse> {

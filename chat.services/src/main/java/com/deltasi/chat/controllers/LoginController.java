@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/chat.services/login")
 public class LoginController {
 
 

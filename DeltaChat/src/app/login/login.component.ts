@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiService} from '../core/api.service';
+import {MatDialog} from '@angular/material'
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import {ApiService} from '../core/api.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  invalidLogin: false;
+  invalidLogin: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   onSubmit() {
