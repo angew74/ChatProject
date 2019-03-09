@@ -1,5 +1,6 @@
 package com.deltasi.chat.listeners;
 import com.deltasi.chat.model.ChatMessage;
+import com.deltasi.chat.model.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + username);
 
             ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(ChatMessage.MessageType.LEAVE);
+            chatMessage.setType(MessageType.LEAVE);
             chatMessage.setSender(username);
 
             messagingTemplate.convertAndSend("/topic/public", chatMessage);

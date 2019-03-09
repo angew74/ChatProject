@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../model/user.model';
 import {ApiService} from '../core/api.service';
+import {DataSource} from '@angular/cdk/table';
 
 @Component({
   selector: 'app-list-user',
@@ -13,6 +14,8 @@ export class ListUserComponent implements OnInit {
   users: User[];
 
   constructor(private router: Router, private apiService: ApiService) { }
+  displayedColumns = ['username', 'mail', 'authority', 'delete'];
+  dataSource = this.users;
 
   ngOnInit() {
     if (!window.localStorage.getItem('token')) {
@@ -21,7 +24,7 @@ export class ListUserComponent implements OnInit {
     }
     this.apiService.getUsers()
       .subscribe( data => {
-        this.users = data.result;
+        this.users = data;
       });
   }
 

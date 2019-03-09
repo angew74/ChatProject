@@ -3,6 +3,7 @@ package com.deltasi.chat.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -22,6 +23,7 @@ public class Authority {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIgnore
     private User user;
 
     //Getter and Setter methods

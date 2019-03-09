@@ -18,6 +18,7 @@ public class WebSocketController {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
+
     @MessageMapping("/chat.services/message")
     @SendTo("/topic/reply")
     public String processMessageFromClient(@Payload ChatMessage message) throws Exception {
@@ -30,6 +31,7 @@ public class WebSocketController {
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
+
 
     @MessageExceptionHandler
     public String handleException(Throwable exception) {
