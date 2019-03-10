@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/chat.services/users/**").permitAll()
                 .antMatchers("/chat.services/token/generate-token").permitAll()
+                .antMatchers("/chat.services/socket/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

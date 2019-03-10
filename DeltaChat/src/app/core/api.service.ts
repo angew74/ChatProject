@@ -12,7 +12,8 @@ import * as SockJS from 'sockjs-client';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
- private baseUrl: string = 'http://localhost:8080/chat.services/users/';
+ private baseUrl = 'http://localhost:8080/chat.services/users/';
+  private socketUrl = 'http://localhost:8080/chat.services/socket'
   private stompClient;
 
   login(loginPayload): Observable<ApiResponse> {
@@ -21,8 +22,17 @@ export class ApiService {
 
   sendMessage(message) {
     if (message) {
-     return this.stompClient.send('http://localhost:8080/chat.services/chat.sendMessage', {}, message);
+     return this.stompClient.send('http://localhost:8080/chat.services/chat/sendMessage', {}, message);
     }
+  }
+
+  initializeWebSocketConnection() {
+    const token = window.localStorage.getItem('token');
+    let ws = new SockJS(this.socketUrl);
+    this.stompClient = Stomp.over(ws);
+    var headers = {
+      Authorization: token};
+    return this.stompClient.connect(headers);
   }
 
   connect() {

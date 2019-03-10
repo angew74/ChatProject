@@ -17,10 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.deltasi.chat.model.Constants.HEADER_STRING;
 import static com.deltasi.chat.model.Constants.TOKEN_PREFIX;
@@ -76,6 +73,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return new AntPathMatcher().match("/chat.services/token/generate-token", request.getServletPath());
+        ArrayList<String> excludeUrlPatterns = new ArrayList<String>();
+        excludeUrlPatterns.add("/chat.services/token/generate-token");
+        excludeUrlPatterns.add("/chat.services/socket/**");
+        excludeUrlPatterns.add("/chat.services/socket/info");
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        boolean exclude = excludeUrlPatterns.stream()
+                .anyMatch(p -> pathMatcher.match(p, request.getServletPath()));
+        return  exclude;
+        // return new AntPathMatcher().match("/chat.services/token/generate-token", request.getServletPath());
+
     }
 }

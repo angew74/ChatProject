@@ -19,14 +19,14 @@ public class WebSocketController {
     private SimpMessageSendingOperations messagingTemplate;
 
 
-    @MessageMapping("/chat.services/message")
+    @MessageMapping("/chat.services/chat/message")
     @SendTo("/topic/reply")
     public String processMessageFromClient(@Payload ChatMessage message) throws Exception {
         String name = message.getSender();
         return name;
     }
 
-    @MessageMapping("/chat.services/chat.sendMessage")
+    @MessageMapping("/chat.services/chat/sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;

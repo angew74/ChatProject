@@ -11,15 +11,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer  {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic/", "/queue/");
+        config.enableSimpleBroker("/topic/", "/queue/","chat");
         config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat.services")
-                .setAllowedOrigins("*");
-        registry.addEndpoint("/chat.services").withSockJS();
+        registry.addEndpoint("/chat.services/socket")
+                .setAllowedOrigins("*")
+                .withSockJS();
     }
 
 }
